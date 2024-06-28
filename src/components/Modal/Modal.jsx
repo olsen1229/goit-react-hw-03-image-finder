@@ -28,10 +28,13 @@ class Modal extends Component {
         const { image, tags } = this.props;
         return (
             <div className={css.overlay} onClick={this.handleBackdropClick}>
+             
                 <div className={css.modal}>
                     <img src={image} alt={tags} />
                 </div>
-            </div>
+            </div>  
+            
+            
         );
     }
 }

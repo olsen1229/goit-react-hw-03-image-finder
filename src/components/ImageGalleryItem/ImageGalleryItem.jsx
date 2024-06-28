@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import css from './ImageGalleryItem.module.css';
 
+
 class ImageGalleryItem extends Component {
   static propTypes = {
     image: PropTypes.shape({
@@ -14,15 +15,31 @@ class ImageGalleryItem extends Component {
     
      state = {
     showModal: false,
-    };
+  };
+  
+  componentDidUpdate(_prevProps, prevState) {
+    if (prevState.showModal !== this.state.showModal) {
+      const gallery = document.querySelector('.js-gallery');
+      if (!gallery) return;
+
+      if (this.state.showModal) {
+        console.log('Modal is now shown');
+        gallery.css.pointerEvents = 'none';
+      } else {
+        console.log('Modal is now hidden');
+        gallery.css.pointerEvents = 'auto';
+      }
+    }
+  }
     
-    toggleModal = () => {
+  toggleModal = () => {
     this.setState(prevState => ({
       showModal: !prevState.showModal,
     }));
-    };
-    
-     render() {
+  };
+      
+   
+    render() {
     const { webformatURL, largeImageURL, tags } = this.props.image;
     const { showModal } = this.state;
 
